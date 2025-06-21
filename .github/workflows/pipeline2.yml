@@ -14,5 +14,5 @@ jobs:
       with:
         python-version: '3.10'
 
-    -name: python run
-     run: python hello.py
+    - name: python run
+      run: python hello.py
