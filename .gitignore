@@ -1,0 +1,37 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python/
+env/
+venv/
+*.env
+.pytest_cache/
+.ipynb_checkpoints/ # Jupyter notebooks checkpoints
+
+# IDEs
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Machine Learning specific
+/data/          # Assuming raw data is too large or handled by DVC
+/saved_models/  # Trained models, checkpoints
+/logs/          # Training logs, experiment logs
+*.pkl           # Pickle files for models or data (if large)
+*.pt            # PyTorch model files (if large and not explicitly tracked)
+*.pth           # PyTorch model files (if large and not explicitly tracked)
+*.onnx
+*.hdf5
+.dvc/           # DVC files (if you use DVC)
+.mlflow/        # MLflow artifacts (if you use MLflow)
+/mlruns/        # MLflow runs directory
+
+# Operating System files
+.DS_Store       # macOS
+Thumbs.db       # Windows
+
+# Any custom large or sensitive files
+config/secrets.yaml # If you have sensitive info in a separate config
