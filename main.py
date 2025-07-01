@@ -12,7 +12,7 @@ from models.model import SimpleNN
 from train.train import train
 from train.evaluate import evaluate
 from utils.logger import log
-
+from torch.utils.tensorboard import SummaryWriter
 
 def main():
     with open("config/config.yaml", 'r')as f:
@@ -22,6 +22,9 @@ def main():
     train_loader = get_data(cfg["batch_size"])
     val_loader = get_data(cfg["batch_size"])
 
+
+    writer=SummaryWriter(log_dir="runs/exp4")
+
     model=SimpleNN(cfg["input_dim"], cfg["hidden_dim"], cfg["output_dim"]).to(device)
     loss_criterion=nn.CrossEntropyLoss()
     optimizer=Adam(model.parameters(), lr=cfg["lr"])
@@ -29,8 +32,8 @@ def main():
     best_acc=0.0
 
     for epoch in range(cfg["epochs"]):
-        loss=train(model, train_loader, loss_criterion, optimizer, device)
-        eval_loss,acc=evaluate(model, val_loader, device)
+        loss=train(model, train_loader, loss_criterion, optimizer, device,writer, epoch)
+        eval_loss,acc=evaluate(model, val_loader, device, writer, epoch)
 
         log(f"Epoch {epoch+1}: Loss={loss:.4f}, Accuracy={acc:.4f}, Eval_loss={eval_loss:.4f}")
 
@@ -39,7 +42,7 @@ def main():
             best_acc=acc
             log("✅ Best model saved!")
 
-
+    writer.close()
 if __name__ == "__main__":
     main()
 

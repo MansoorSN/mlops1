@@ -1,5 +1,5 @@
 batch_size: 32
-epochs: 20
+epochs: 50
 lr: 0.001
 input_dim: 10
 hidden_dim: 64

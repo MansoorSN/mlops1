@@ -1,5 +1,7 @@
 import torch
-def evaluate(model, dataloader, device):
+from torch.utils.tensorboard import SummaryWriter
+
+def evaluate(model, dataloader, device, writer=None, epoch=None):
     model.eval()
     correct=0
     total=0
@@ -14,6 +16,12 @@ def evaluate(model, dataloader, device):
             correct+=(predicted==y_batch).sum().item()
             total+=y_batch.size(0)
 
+    accuracy=correct/total
+    eval_loss=loss_score/total
 
-    return (loss_score/total, correct/total)
+    if writer and epoch is not None:
+        writer.add_scalar('Eval_Accuracy/val_epoch', accuracy, epoch)
+        writer.add_scalar('Eval_loss/val_epoch', eval_loss, epoch)
+    
+    return (eval_loss, accuracy)
 
