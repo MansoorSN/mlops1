@@ -20,8 +20,8 @@ def evaluate(model, dataloader, device, writer=None, epoch=None):
     eval_loss=loss_score/total
 
     if writer and epoch is not None:
-        writer.add_scalar('Eval_Accuracy/val_epoch', accuracy, epoch)
-        writer.add_scalar('Eval_loss/val_epoch', eval_loss, epoch)
+        writer.add_scalar('Eval/Accuracy', accuracy, epoch)
+        writer.add_scalar('Eval/Loss', eval_loss, epoch)
     
     return (eval_loss, accuracy)
 
